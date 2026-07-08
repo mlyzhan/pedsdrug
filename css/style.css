@@ -35,13 +35,9 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 .detail-area .drug-title{font-size:18px;font-weight:bold;color:#2c3e50;margin-bottom:8px;line-height:1.4}
 .detail-area .drug-tag{display:inline-block;padding:3px 10px;font-size:12px;background:#3498db;color:#fff;border-radius:4px;margin-bottom:12px}
 .field-row{margin-bottom:8px;line-height:1.5}
-.field-label{font-size:15px;font-weight:bold;color:#333;margin-bottom:2px}
-.field-label-block{display:block}
-.field-label-inline{display:inline}
-.field-value{font-size:14px;color:#444;white-space:pre-wrap}
-.field-value-inline{display:inline}
+.field-label{font-size:15px;font-weight:bold;color:#333;display:block;margin-bottom:2px}
+.field-value{font-size:14px;color:#444;white-space:pre-wrap;display:inline}
 .field-value-block{font-size:14px;color:#444;white-space:pre-wrap;display:block;margin-top:2px}
-.field-sep{color:#ccc;margin:0 4px;font-size:13px;display:inline}
 .detail-footer{text-align:center;margin-top:10px;color:#888;font-size:12px;font-style:italic}
 
 /* 高亮 */

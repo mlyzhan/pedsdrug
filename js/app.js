@@ -118,9 +118,9 @@ function formatDrugText(text) {
 function renderField(label, value, isBlock) {
   if (!value) return '';
   if (isBlock) {
-    return "<div class='field-row'><span class='field-label field-label-block'>【" + label + "】</span><div class='field-value-block'>" + value + "</div></div>";
+    return "<div class='field-row'><span class='field-label'>【" + label + "】</span><div class='field-value-block'>" + value + "</div></div>";
   } else {
-    return "<span class='field-row'><span class='field-label field-label-inline'>【" + label + "】</span><span class='field-value field-value-inline'>" + value + "</span></span>&nbsp;&nbsp;";
+    return "<div class='field-row'><span class='field-label'>【" + label + "】</span><span class='field-value'>" + value + "</span></div>";
   }
 }
 
@@ -211,7 +211,8 @@ function showDetail(idx) {
     html += renderField("儿童用法用量", formatDrugText(d['儿童用法用量']), true);
     html += renderField("注意事项", formatDrugText(d['注意事项']), true);
   } else {
-    html += "<div class='field-row'><span class='field-label field-label-inline'>【化学结构 / 代次】</span><span class='field-value field-value-inline'>" + d['分类信息'] + "</span><span class='field-sep'>｜</span><span class='field-label field-label-inline'>【途径】</span><span class='field-value field-value-inline'>" + d['途径'] + "</span></div>";
+    html += renderField("化学结构 / 代次", d['分类信息'], false);
+    html += renderField("途径", d['途径'], false);
     html += renderField("抗菌谱", formatDrugText(d['抗菌谱']), true);
     html += renderField("适应症", formatDrugText(d['适应症']), true);
     html += renderField("用法用量", formatDrugText(d['用法用量']), true);
