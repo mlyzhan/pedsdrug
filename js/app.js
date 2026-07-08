@@ -118,9 +118,9 @@ function formatDrugText(text) {
 function renderField(label, value, isBlock) {
   if (!value) return '';
   if (isBlock) {
-    return "<div class='field-row'><span class='field-label'>【" + label + "】</span><div class='field-value-block'>" + value + "</div></div>";
+    return "<div class='field-row-detail'><span class='field-label'>【" + label + "】</span><div class='field-value-block'>" + value + "</div></div>";
   } else {
-    return "<div class='field-row'><span class='field-label'>【" + label + "】</span><span class='field-value'>" + value + "</span></div>";
+    return "<div class='field-row-detail'><span class='field-label'>【" + label + "】</span><span class='field-value'>" + value + "</span></div>";
   }
 }
 

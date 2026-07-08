@@ -34,10 +34,10 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 .detail-area{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,0.1);position:relative}
 .detail-area .drug-title{font-size:18px;font-weight:bold;color:#2c3e50;margin-bottom:8px;line-height:1.4}
 .detail-area .drug-tag{display:inline-block;padding:3px 10px;font-size:12px;background:#3498db;color:#fff;border-radius:4px;margin-bottom:12px}
-.field-row{margin-bottom:8px;line-height:1.5}
-.field-label{font-size:15px;font-weight:bold;color:#333;display:block;margin-bottom:2px}
-.field-value{font-size:14px;color:#444;white-space:pre-wrap;display:inline}
-.field-value-block{font-size:14px;color:#444;white-space:pre-wrap;display:block;margin-top:2px}
+.field-label{font-size:15px;font-weight:bold;color:#333;margin-bottom:2px}
+.field-value{font-size:14px;color:#444;white-space:pre-wrap}
+.field-row-detail{margin-bottom:8px;line-height:1.5}
+.field-value-block{font-size:14px;color:#444;white-space:pre-wrap;display:block;margin-top:4px;padding-left:0}
 .detail-footer{text-align:center;margin-top:10px;color:#888;font-size:12px;font-style:italic}
 
 /* 高亮 */
