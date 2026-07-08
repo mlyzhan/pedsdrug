@@ -1,0 +1,101 @@
+/* style.css — 儿科常用药物说明书 */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif;background:#f5f6fa;min-height:100vh}
+
+/* 页面容器 */
+.page{display:none;padding:15px;max-width:600px;margin:0 auto;width:100%}
+.page.active{display:block}
+
+/* 搜索页 */
+.search-box{margin-top:20px}
+.search-box h5{font-size:16px;margin-bottom:10px;color:#2c3e50}
+.search-box input{width:100%;padding:12px;font-size:16px;border:1px solid #ddd;border-radius:8px;margin-bottom:10px;outline:none}
+.search-box input:focus{border-color:#3498db}
+.search-box button{width:100%;padding:12px;font-size:16px;background:#3498db;color:#fff;border:none;border-radius:8px;cursor:pointer}
+.search-box button:active{background:#2980b9}
+
+/* 列表页 */
+#list-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+#list-table th{padding:12px 10px;text-align:left;background:#f0f4f8;font-size:14px;border-bottom:1px solid #d0d7de;color:#333}
+#list-table td{padding:10px;font-size:14px;border-bottom:1px solid #f0f0f0;color:#333}
+#list-table tr:last-child td{border-bottom:none}
+#list-table tr{cursor:pointer;transition:background .15s}
+#list-table tr:hover{background:#f8faff}
+#list-table tr:active{background:#e8f4fd}
+#list-table .drug-name{font-weight:500;color:#2c3e50}
+#list-table .drug-cat{font-size:12px;color:#888}
+.pagination{display:flex;justify-content:center;align-items:center;gap:10px;margin:15px 0}
+.pagination button{padding:8px 16px;border:1px solid #ddd;border-radius:8px;background:#fff;cursor:pointer;font-size:14px;transition:background .15s}
+.pagination button:hover:not(:disabled){background:#f0f4f8}
+.pagination button:disabled{opacity:.4;cursor:default}
+.pagination span{font-size:14px;color:#666}
+
+/* 详情 */
+.detail-area{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,0.1);position:relative}
+.detail-area .drug-title{font-size:18px;font-weight:bold;color:#2c3e50;margin-bottom:8px;line-height:1.4}
+.detail-area .drug-tag{display:inline-block;padding:3px 10px;font-size:12px;background:#3498db;color:#fff;border-radius:4px;margin-bottom:12px}
+.field-row{margin-bottom:8px;line-height:1.5}
+.field-label{font-size:15px;font-weight:bold;color:#333;margin-bottom:2px}
+.field-label-block{display:block}
+.field-label-inline{display:inline}
+.field-value{font-size:14px;color:#444;white-space:pre-wrap}
+.field-value-inline{display:inline}
+.field-value-block{font-size:14px;color:#444;white-space:pre-wrap;display:block;margin-top:2px}
+.field-sep{color:#ccc;margin:0 4px;font-size:13px;display:inline}
+.detail-footer{text-align:center;margin-top:10px;color:#888;font-size:12px;font-style:italic}
+
+/* 高亮 */
+.highlight-blue{color:#007bff;font-weight:bold}
+.highlight-red{color:#dc3545;font-weight:bold}
+.highlight-green{color:#28a745;font-weight:bold}
+.highlight-orange{color:#fd7e14;font-weight:bold}
+.highlight-purple{color:#8e44ad;font-weight:bold}
+
+/* 水印 */
+.watermark-container{position:relative}
+.watermark-container::before{content:'hanson';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-45deg);font-family:Georgia,'Times New Roman',serif;font-size:clamp(60px,15vw,150px);font-weight:bold;font-style:italic;color:#888;opacity:0.08;pointer-events:none;z-index:10;letter-spacing:8px;user-select:none}
+.detail-content{position:relative;z-index:20}
+
+/* 按钮组 */
+.btn-bar{display:flex;gap:5px;margin-top:15px}
+.btn-bar button{flex:1;padding:10px 2px;font-size:12px;border-radius:8px;border:1px solid #ddd;background:#fff;cursor:pointer;text-align:center;line-height:1.2}
+.btn-bar button:active{opacity:.7}
+.btn-search{background:#ecf0f1!important}
+.btn-list{background:#f39c12!important;color:#fff!important;border-color:#f39c12!important}
+.btn-screenshot{background:#27ae60!important;color:#fff!important;border-color:#27ae60!important}
+.btn-calc{background:#3498db!important;color:#fff!important;border-color:#3498db!important}
+.btn-feedback{background:#e74c3c!important;color:#fff!important;border-color:#e74c3c!important}
+
+/* 计算器 */
+#calc-container{position:fixed;bottom:80px;right:10px;width:48vw;max-width:230px;min-width:170px;background:rgba(255,255,255,0.95);border:1.5px solid rgba(0,0,0,0.2);border-radius:15px;padding:12px;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,0.15);display:none}
+#calc-container.show{display:block}
+.calc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;cursor:move}
+.calc-header span{font-size:16px;color:#999;cursor:pointer}
+.calc-header span:hover{color:#d9534f}
+.calc-drag-icon{color:#666;font-size:14px}
+.calc-display{width:100%;height:40px;text-align:right;padding:5px 10px;font-size:20px;border-radius:8px;background:rgba(255,255,255,0.6);border:1px solid rgba(0,0,0,0.1);color:#d9534f;font-weight:bold;margin-bottom:8px;outline:none}
+.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.calc-btn{width:100%;aspect-ratio:1.1/1;font-size:16px;font-weight:800;color:#333;border-radius:50%;border:1px solid rgba(0,0,0,0.5);background:rgba(255,255,255,0.4);cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;padding:0}
+.calc-btn:active{background:rgba(0,0,0,0.1)}
+.calc-func{color:#d9534f!important;border-color:#d9534f!important}
+.calc-op{color:#337ab7!important;border-color:#337ab7!important}
+#btn-equal{grid-column:span 2;aspect-ratio:unset;height:36px;border-radius:20px;background:rgba(52,152,219,0.2)!important;border:1.5px solid #3498db!important;font-size:20px}
+
+/* 弹窗 */
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:10000;display:none;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal-box{background:#fff;border-radius:15px;padding:25px;max-width:300px;width:90%;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.3)}
+.modal-box h4{margin:10px 0;font-size:16px}
+.modal-box p{color:#666;font-size:13px;margin-bottom:15px}
+.modal-box button{padding:8px 30px;border-radius:6px;border:1px solid #ddd;background:#fff;cursor:pointer}
+.modal-icon{font-size:48px;color:#f39c12}
+
+/* 表格 */
+.drug-table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+.drug-table th{padding:6px 8px;text-align:left;font-weight:bold;border:1px solid #d0d7de;background:#f0f4f8}
+.drug-table td{padding:6px 8px;border:1px solid #d0d7de}
+
+/* 通用 */
+.back-btn{display:inline-block;padding:8px 16px;border-radius:6px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:14px;margin-bottom:10px}
+.back-btn:active{background:#eee}
+.search-info{font-size:13px;color:#666;margin:8px 0}

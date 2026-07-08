@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>儿科常用药物说明书</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-icon">⚠</div>
+    <h4>未查询到药品</h4>
+    <p>请检查输入或减少关键词</p>
+    <button onclick="closeModal()">重新输入</button>
+  </div>
+</div>
+
+<div class="page active" id="page-search">
+  <div class="search-box">
+    <h5>第一步：搜索药品</h5>
+    <input type="text" id="search-input" placeholder="例如：头孢、感冒、amxl" onkeydown="if(event.key==='Enter')doSearch()">
+    <button onclick="doSearch()">查看搜索结果</button>
+  </div>
+</div>
+
+<div class="page" id="page-list">
+  <button class="back-btn" onclick="goPage('search')">← 返回搜索</button>
+  <div class="search-info" id="search-info"></div>
+  <div id="list-container"></div>
+</div>
+
+<div class="page" id="page-detail">
+  <button class="back-btn" onclick="backToList()">← 返回列表</button>
+  <div class="watermark-container">
+    <div class="detail-area" id="detail-area">
+      <div class="detail-content" id="detail-content"></div>
+    </div>
+  </div>
+  <div class="detail-footer">温馨提示：请结合临床实际情况及说明书决定用药方案</div>
+  <div class="btn-bar">
+    <button class="btn-search" onclick="goPage('search')">🔍 新搜索</button>
+    <button class="btn-list" onclick="backToList()">☰ 列表</button>
+    <button class="btn-screenshot" onclick="takeScreenshot()">📷 保存</button>
+    <button class="btn-calc" onclick="toggleCalc()">🔢 计算器</button>
+    <button class="btn-feedback" onclick="window.open('https://docs.qq.com/form/page/DR1NPc0NCd3ZaVVNi','_blank')">💬 反馈</button>
+  </div>
+</div>
+
+<div id="calc-container">
+  <div class="calc-header" id="calc-header">
+    <span></span>
+    <b class="calc-drag-icon">☰</b>
+    <span onclick="toggleCalc()">✕</span>
+  </div>
+  <input class="calc-display" id="calc-display" readonly>
+  <div class="calc-grid" id="calc-grid"></div>
+</div>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
