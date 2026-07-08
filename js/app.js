@@ -255,14 +255,33 @@ function buildCalc() {
   var html = '';
   for (var i = 0; i < btns.length; i++) {
     var b = btns[i];
-    html += "<button class='calc-btn " + (b.c||'') + "'" + (b.id?" id='"+b.id+"'":"") + " onclick='" + (b.f||"calcInput('"+b.t+"')") + "'>" + b.t + "</button>";
+    html += "<button class='calc-btn " + (b.c||'') + "'" + (b.id?" id='"+b.id+"'":"") + " onclick=\"" + b.f + "\">" + b.t + "</button>";
   }
   grid.innerHTML = html;
 }
 
 function toggleCalc() {
   isCalcOpen = !isCalcOpen;
-  document.getElementById('calc-container').classList.toggle('show', isCalcOpen);
+  var c = document.getElementById('calc-container');
+  c.classList.toggle('show', isCalcOpen);
+  if (isCalcOpen) {
+    var detail = document.getElementById('detail-area');
+    if (detail) {
+      var r = detail.getBoundingClientRect();
+      var bw = c.offsetWidth || 230;
+      c.style.position = 'fixed';
+      c.style.right = Math.max(5, (window.innerWidth - r.right)) + 'px';
+      c.style.bottom = Math.max(5, (window.innerHeight - r.bottom)) + 'px';
+      c.style.left = '';
+      c.style.top = '';
+    } else {
+      c.style.position = 'fixed';
+      c.style.right = '10px';
+      c.style.bottom = '80px';
+      c.style.left = '';
+      c.style.top = '';
+    }
+  }
 }
 function calcInput(v) { document.getElementById('calc-display').value += v; }
 function calcClear() { document.getElementById('calc-display').value = ''; }
@@ -279,15 +298,20 @@ function calcEvaluate() {
   } catch(e) { d.value = 'Error'; }
 }
 
-// 拖拽
+// 拖拽（只响应 calc-header 内的鼠标事件，避免全局干扰）
 var dragEl = null, dx = 0, dy = 0;
 document.addEventListener('mousedown', function(e) {
   var h = e.target.closest('#calc-header');
   if (!h) return;
-  dragEl = document.getElementById('calc-container');
+  var c = document.getElementById('calc-container');
+  c.style.position = 'fixed';
+  c.style.right = '';
+  c.style.bottom = '';
+  dragEl = c;
   var rect = dragEl.getBoundingClientRect();
   dx = e.clientX - rect.left;
   dy = e.clientY - rect.top;
+  e.preventDefault();
 });
 document.addEventListener('mousemove', function(e) {
   if (!dragEl) return;
