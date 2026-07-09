@@ -224,15 +224,13 @@ function showDetail(idx) {
   html += "<hr style='margin:10px 0;border:none;border-top:1px solid #eee'>";
 
   if (d['来源'] === '普通药物') {
-    html += renderField("目录层级", d['分类信息'], false);
-    html += "<div style='margin-bottom:10px;padding-left:0'><span class='drug-tag'>" + d['分类信息'] + "</span></div>";
+    html += renderField("目录层级", "<span class='drug-tag'>" + d['分类信息'] + "</span>", false);
     html += renderField("途径", d['途径'], false);
     html += renderField("适应症", formatDrugText(d['适应症']), true);
     html += renderField("儿童用法用量", formatDrugText(d['儿童用法用量']), true);
     html += renderField("注意事项", formatDrugText(d['注意事项']), true);
   } else {
-    html += renderField("化学结构 / 代次", d['分类信息'], false);
-    html += "<div style='margin-bottom:10px;padding-left:0'><span class='drug-tag'>" + d['分类信息'] + "</span></div>";
+    html += renderField("化学结构 / 代次", "<span class='drug-tag'>" + d['分类信息'] + "</span>", false);
     html += renderField("途径", d['途径'], false);
     html += renderField("抗菌谱", formatDrugText(d['抗菌谱']), true);
     html += renderField("适应症", formatDrugText(d['适应症']), true);
