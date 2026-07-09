@@ -3,8 +3,10 @@
 body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif;background:#f5f6fa;min-height:100vh}
 
 /* 页面容器 */
-.page{display:none;padding:15px;max-width:600px;margin:0 auto;width:100%}
+.page{display:none;padding:15px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box}
 .page.active{display:block}
+#page-detail{display:none;padding:15px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box}
+#page-detail.active{display:flex;flex-direction:column;min-height:100dvh;box-sizing:border-box}
 
 /* 搜索页 */
 .search-box{margin-top:20px}
@@ -31,14 +33,12 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 .pagination span{font-size:14px;color:#666}
 
 /* 详情 */
-.detail-area{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,0.1);position:relative}
-.detail-area .drug-title{font-size:18px;font-weight:bold;color:#2c3e50;margin-bottom:8px;line-height:1.4}
-.detail-area .drug-tag{display:inline-block;padding:3px 10px;font-size:12px;background:#3498db;color:#fff;border-radius:4px;margin-bottom:12px}
+.detail-area{background:#fff;border-radius:12px;padding:24px 20px;box-shadow:0 1px 4px rgba(0,0,0,0.1);position:relative}
 .field-label{font-size:15px;font-weight:bold;color:#333;margin-bottom:2px}
 .field-value{font-size:14px;color:#444;white-space:pre-wrap}
 .field-row-detail{margin-bottom:8px;line-height:1.5}
 .field-value-block{font-size:14px;color:#444;white-space:pre-wrap;display:block;margin-top:4px;padding-left:0}
-.detail-footer{text-align:center;margin-top:10px;color:#888;font-size:12px;font-style:italic}
+.detail-footer{text-align:center;margin-top:10px;color:#888;font-size:12px;font-style:italic;flex-shrink:0}
 
 /* 高亮 */
 .highlight-blue{color:#007bff;font-weight:bold}
@@ -47,14 +47,20 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 .highlight-orange{color:#fd7e14;font-weight:bold}
 .highlight-purple{color:#8e44ad;font-weight:bold}
 
-/* 水印 */
-.watermark-container{position:relative}
+/* 水印+详情容器垂直居中 */
+.watermark-container{position:relative;display:flex;align-items:center;justify-content:center;flex:1;margin:4px 0 8px;min-height:0}
 .watermark-container::before{content:'hanson';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-45deg);font-family:Georgia,'Times New Roman',serif;font-size:clamp(60px,15vw,150px);font-weight:bold;font-style:italic;color:#888;opacity:0.08;pointer-events:none;z-index:10;letter-spacing:8px;user-select:none}
-.detail-content{position:relative;z-index:20}
+.watermark-container::before{content:'hanson';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-45deg);font-family:Georgia,'Times New Roman',serif;font-size:clamp(60px,15vw,150px);font-weight:bold;font-style:italic;color:#888;opacity:0.08;pointer-events:none;z-index:10;letter-spacing:8px;user-select:none}
+.detail-content{position:relative;z-index:20;width:100%}
+
+/* 标题行：药品名 + 标签同行，溢出自动缩小 */
+.detail-title-row{display:flex;align-items:baseline;gap:8px;margin-bottom:12px;flex-wrap:nowrap;width:100%}
+.detail-title-row .drug-title{font-size:clamp(15px,4.8vw,20px);font-weight:700;color:#2c3e50;flex-shrink:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.4}
+.detail-title-row .drug-tag{flex-shrink:0;padding:2px 10px;font-size:clamp(11px,3vw,13px);background:#3498db;color:#fff;border-radius:4px;white-space:nowrap;line-height:1.6}
 
 /* 按钮组 */
-.btn-bar{display:flex;gap:5px;margin-top:15px}
-.btn-bar button{flex:1;padding:10px 2px;font-size:12px;border-radius:8px;border:1px solid #ddd;background:#fff;cursor:pointer;text-align:center;line-height:1.2}
+.btn-bar{display:flex;gap:8px;margin-top:10px;flex-shrink:0}
+.btn-bar button{flex:1;padding:12px 2px;font-size:13px;border-radius:10px;border:1px solid #ddd;background:#fff;cursor:pointer;text-align:center;line-height:1.2}
 .btn-bar button:active{opacity:.7}
 .btn-screenshot{background:#27ae60!important;color:#fff!important;border-color:#27ae60!important}
 .btn-calc{background:#3498db!important;color:#fff!important;border-color:#3498db!important}
@@ -90,7 +96,7 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 .drug-table td{padding:6px 8px;border:1px solid #d0d7de}
 
 /* 页面导航头 */
-.page-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.page-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-shrink:0}
 .nav-btn{display:flex;align-items:center;gap:3px;padding:6px 10px;border-radius:8px;border:1px solid #e0e0e0;background:#fff;cursor:pointer;font-size:13px;color:#555;transition:all .15s;white-space:nowrap}
 .nav-btn:active{background:#f0f4f8;border-color:#3498db;color:#3498db}
 .nav-btn-right{margin-left:auto}

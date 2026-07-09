@@ -220,8 +220,7 @@ function nextPage() { var total = Math.ceil(searchResults.length / PAGE_SIZE); i
 function showDetail(idx) {
   var d = searchResults[idx];
   selectedDrug = d;
-  var html = "<div class='drug-title'>" + d['药物'] + "</div>";
-  html += "<span class='drug-tag'>" + d['分类信息'] + "</span>";
+  var html = "<div class='detail-title-row'><span class='drug-title'>" + d['药物'] + "</span><span class='drug-tag'>" + d['分类信息'] + "</span></div>";
   html += "<hr style='margin:10px 0;border:none;border-top:1px solid #eee'>";
 
   if (d['来源'] === '普通药物') {
