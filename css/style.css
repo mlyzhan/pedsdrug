@@ -91,6 +91,16 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 .drug-table th{padding:6px 8px;text-align:left;font-weight:bold;border:1px solid #d0d7de;background:#f0f4f8}
 .drug-table td{padding:6px 8px;border:1px solid #d0d7de}
 
+/* 页面导航头 */
+.page-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.nav-btn{display:flex;align-items:center;gap:3px;padding:6px 10px;border-radius:8px;border:1px solid #e0e0e0;background:#fff;cursor:pointer;font-size:13px;color:#555;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.nav-btn:active{background:#f0f4f8;border-color:#3498db;color:#3498db}
+.page-title{font-size:16px;font-weight:600;color:#2c3e50;margin:0}
+.nav-placeholder{width:64px}
+.header-search{flex:1;min-width:0}
+.header-search input{width:100%;padding:7px 10px;font-size:13px;border:1px solid #ddd;border-radius:8px;outline:none;box-sizing:border-box}
+.header-search input:focus{border-color:#3498db}
+
 /* 通用 */
 .back-btn{display:inline-block;padding:8px 16px;border-radius:6px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:14px;margin-bottom:10px}
 .back-btn:active{background:#eee}

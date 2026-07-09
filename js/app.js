@@ -136,6 +136,19 @@ function goPage(name) {
 
 function backToList() { goPage('list'); renderList(); }
 
+// 列表页内联筛选
+var _fullResults = [];
+function reSearch() {
+  var q = document.getElementById('list-search-input').value.trim().toLowerCase();
+  if (!q) { searchResults = _fullResults; currentPage = 1; renderList(); return; }
+  var filtered = _fullResults.filter(function(d) {
+    return d['药物'].toLowerCase().indexOf(q) >= 0 || d['首拼'].toLowerCase().indexOf(q) >= 0 || d['适应症'].toLowerCase().indexOf(q) >= 0;
+  });
+  searchResults = filtered;
+  currentPage = 1;
+  renderList();
+}
+
 // ============================================================
 // 搜索
 // ============================================================
@@ -156,6 +169,7 @@ function doSearch() {
     return;
   }
   searchResults = results;
+  _fullResults = results;
   currentPage = 1;
   goPage('list');
 }
@@ -171,7 +185,12 @@ function closeModal() {
 function renderList() {
   var info = document.getElementById('search-info');
   var q = document.getElementById('search-input').value.trim();
-  info.textContent = '搜索 "' + q + '" — 共 ' + searchResults.length + ' 条结果';
+  var filterQ = document.getElementById('list-search-input').value.trim();
+  if (filterQ) {
+    info.textContent = '搜索 "' + q + '" — 筛选 "' + filterQ + '" — 共 ' + searchResults.length + ' 条';
+  } else {
+    info.textContent = '搜索 "' + q + '" — 共 ' + searchResults.length + ' 条结果';
+  }
 
   var start = (currentPage - 1) * PAGE_SIZE;
   var end = Math.min(start + PAGE_SIZE, searchResults.length);
