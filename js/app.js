@@ -258,6 +258,20 @@ function takeScreenshot() {
   });
 }
 
+// 更多菜单切换
+function toggleMoreMenu() {
+  var m = document.getElementById('more-menu');
+  m.classList.toggle('show');
+}
+
+// 点击页面其他地方关闭菜单
+document.addEventListener('click', function(e) {
+  var m = document.getElementById('more-menu');
+  if (m && m.classList.contains('show') && !e.target.closest('.btn-more-wrapper')) {
+    m.classList.remove('show');
+  }
+});
+
 // ============================================================
 // 计算器
 // ============================================================

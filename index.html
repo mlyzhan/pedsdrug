@@ -60,7 +60,13 @@
   <div class="btn-bar">
     <button class="btn-screenshot" onclick="takeScreenshot()">📷 保存</button>
     <button class="btn-calc" onclick="toggleCalc()">🔢 计算器</button>
-    <button class="btn-feedback" onclick="window.open('https://docs.qq.com/form/page/DR1NPc0NCd3ZaVVNi','_blank')">💬 反馈</button>
+    <div class="btn-more-wrapper">
+      <button class="btn-more" onclick="toggleMoreMenu()">⋯ 其他</button>
+      <div class="more-menu" id="more-menu">
+        <div class="more-item" onclick="window.open('https://docs.qq.com/form/page/DR1NPc0NCd3ZaVVNi','_blank')">💬 反馈</div>
+        <div class="more-item" onclick="window.open('https://pedsdrug.pedsdrug.workers.dev','_blank')">🌐 备用网址</div>
+      </div>
+    </div>
   </div>
 </div>
 
