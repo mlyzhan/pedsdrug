@@ -3,9 +3,9 @@
 body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif;background:#f5f6fa;min-height:100vh}
 
 /* 页面容器 */
-.page{display:none;padding:15px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box}
+.page{display:none;padding:15px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;container-type:inline-size}
 .page.active{display:block}
-#page-detail{display:none;padding:15px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box}
+#page-detail{display:none;padding:15px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;container-type:inline-size}
 #page-detail.active{display:flex;flex-direction:column;min-height:100dvh;box-sizing:border-box}
 
 /* 搜索页 */
@@ -33,7 +33,7 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 .pagination span{font-size:14px;color:#666}
 
 /* 详情卡片 */
-.detail-area{background:#fff;border-radius:12px;padding:24px 20px;box-shadow:0 1px 4px rgba(0,0,0,0.1);position:relative;container-type:inline-size}
+.detail-area{background:#fff;border-radius:12px;padding:24px 20px;box-shadow:0 1px 4px rgba(0,0,0,0.1);position:relative}
 .field-label{font-size:15px;font-weight:bold;color:#333;margin-bottom:2px}
 .field-value{font-size:14px;color:#444;white-space:pre-wrap}
 .field-row-detail{margin-bottom:8px;line-height:1.5}
