@@ -3,9 +3,9 @@
 body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif;background:#f5f6fa;min-height:100vh}
 
 /* 页面容器 */
-.page{display:none;padding:15px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;container-type:inline-size}
+.page{display:none;padding:15px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box}
 .page.active{display:block}
-#page-detail{display:none;padding:15px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;container-type:inline-size}
+#page-detail{display:none;padding:15px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;overflow-x:hidden}
 #page-detail.active{display:flex;flex-direction:column;min-height:100dvh;box-sizing:border-box}
 
 /* 搜索页 */
@@ -33,7 +33,7 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 .pagination span{font-size:14px;color:#666}
 
 /* 详情卡片 */
-.detail-area{background:#fff;border-radius:12px;padding:24px 20px;box-shadow:0 1px 4px rgba(0,0,0,0.1);position:relative}
+.detail-area{background:#fff;border-radius:12px;padding:24px 20px;box-shadow:0 1px 4px rgba(0,0,0,0.1);position:relative;overflow-x:hidden}
 .field-label{font-size:15px;font-weight:bold;color:#333;margin-bottom:2px}
 .field-value{font-size:14px;color:#444;white-space:pre-wrap}
 .field-row-detail{margin-bottom:8px;line-height:1.5}
@@ -47,10 +47,10 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 .highlight-orange{color:#fd7e14;font-weight:bold}
 .highlight-purple{color:#8e44ad;font-weight:bold}
 
-/* 标题行：药品名 + 标签同行，相对容器宽度自适应缩小 */
-.detail-title-row{display:flex;align-items:baseline;gap:max(4px,1.5cqi);margin-bottom:12px;flex-wrap:nowrap;width:100%}
-.detail-title-row .drug-title{font-size:clamp(14px,7cqi,20px);font-weight:700;color:#2c3e50;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:1;min-width:30%;line-height:1.4}
-.detail-title-row .drug-tag{flex-shrink:0;padding:2px max(6px,1.5cqi);font-size:clamp(10px,4cqi,13px);background:#3498db;color:#fff;border-radius:4px;white-space:nowrap;line-height:1.6}
+/* 标题行：药品名 + 标签同行，使用 vw 保证不撑开页面 */
+.detail-title-row{display:flex;align-items:baseline;gap:clamp(4px,1.5vw,8px);margin-bottom:12px;flex-wrap:nowrap;width:100%;overflow:hidden}
+.detail-title-row .drug-title{font-size:clamp(13px,4.5vw,20px);font-weight:700;color:#2c3e50;flex-shrink:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:30%;max-width:75%;line-height:1.4}
+.detail-title-row .drug-tag{flex-shrink:0;padding:2px clamp(4px,1vw,10px);font-size:clamp(10px,3.2vw,13px);background:#3498db;color:#fff;border-radius:4px;white-space:nowrap;line-height:1.6}
 
 /* 水印 */
 .watermark-container{position:relative;display:flex;align-items:center;justify-content:center;flex:1;margin:4px 0 8px;min-height:0}
@@ -68,13 +68,13 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 /* 更多菜单 */
 .btn-more-wrapper{position:relative;flex:1;display:flex}
 .btn-more-wrapper button{flex:1}
-.more-menu{position:absolute;bottom:calc(100% + 4px);left:0;right:0;background:#fff;border-radius:10px;border:1px solid #e0e0e0;box-shadow:0 -2px 12px rgba(0,0,0,0.12);z-index:100;display:none;overflow:hidden;container-type:inline-size}
+.more-menu{position:absolute;bottom:calc(100% + 4px);left:0;right:0;background:#fff;border-radius:10px;border:1px solid #e0e0e0;box-shadow:0 -2px 12px rgba(0,0,0,0.12);z-index:100;display:none;overflow:hidden}
 .more-menu.show{display:block}
 .more-item{display:flex;align-items:center;gap:6px;padding:10px 12px;font-size:13px;cursor:pointer;color:#333;border-bottom:1px solid #f0f0f0;white-space:nowrap;overflow:hidden}
 .more-item:last-child{border-bottom:none}
 .more-item:active{background:#f5f5f5}
-.more-item .mi-icon{flex-shrink:0;font-size:clamp(12px,3.5cqi,16px)}
-.more-item .mi-text{overflow:hidden;text-overflow:ellipsis;font-size:clamp(10px,3cqi,13px)}
+.more-item .mi-icon{flex-shrink:0;font-size:clamp(12px,3vw,16px)}
+.more-item .mi-text{overflow:hidden;text-overflow:ellipsis;font-size:clamp(10px,2.5vw,13px)}
 
 /* 计算器 */
 #calc-container{position:fixed;bottom:80px;right:10px;width:48vw;max-width:230px;min-width:170px;background:rgba(255,255,255,0.85);border:1.5px solid rgba(0,0,0,0.15);border-radius:15px;padding:12px;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,0.1);display:none;touch-action:none}
