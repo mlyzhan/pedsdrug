@@ -9,6 +9,7 @@ const PAGE_SIZE = 15;
 let searchResults = [];
 let selectedDrug = null;
 let isCalcOpen = false;
+var _justEvaluated = false;
 
 // ============================================================
 // 格式化函数
@@ -302,7 +303,12 @@ function toggleCalc() {
     }
   }
 }
-function calcInput(v) { document.getElementById('calc-display').value += v; }
+function calcInput(v) {
+  var d = document.getElementById('calc-display');
+  if (_justEvaluated && /^[\d.]/.test(v)) { d.value = ''; }
+  _justEvaluated = false;
+  d.value += v;
+}
 function calcClear() { document.getElementById('calc-display').value = ''; }
 function calcBackspace() {
   var d = document.getElementById('calc-display');
@@ -314,6 +320,7 @@ function calcEvaluate() {
   try {
     var r = Function('"use strict"; return (' + d.value + ')')();
     d.value = Number.isInteger(r) ? r : r.toFixed(2);
+    _justEvaluated = true;
   } catch(e) { d.value = 'Error'; }
 }
 

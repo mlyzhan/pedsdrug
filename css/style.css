@@ -56,8 +56,6 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 .btn-bar{display:flex;gap:5px;margin-top:15px}
 .btn-bar button{flex:1;padding:10px 2px;font-size:12px;border-radius:8px;border:1px solid #ddd;background:#fff;cursor:pointer;text-align:center;line-height:1.2}
 .btn-bar button:active{opacity:.7}
-.btn-search{background:#ecf0f1!important}
-.btn-list{background:#f39c12!important;color:#fff!important;border-color:#f39c12!important}
 .btn-screenshot{background:#27ae60!important;color:#fff!important;border-color:#27ae60!important}
 .btn-calc{background:#3498db!important;color:#fff!important;border-color:#3498db!important}
 .btn-feedback{background:#e74c3c!important;color:#fff!important;border-color:#e74c3c!important}
@@ -93,11 +91,11 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 
 /* 页面导航头 */
 .page-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.nav-btn{display:flex;align-items:center;gap:3px;padding:6px 10px;border-radius:8px;border:1px solid #e0e0e0;background:#fff;cursor:pointer;font-size:13px;color:#555;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.nav-btn{display:flex;align-items:center;gap:3px;padding:6px 10px;border-radius:8px;border:1px solid #e0e0e0;background:#fff;cursor:pointer;font-size:13px;color:#555;transition:all .15s;white-space:nowrap}
 .nav-btn:active{background:#f0f4f8;border-color:#3498db;color:#3498db}
-.page-title{font-size:16px;font-weight:600;color:#2c3e50;margin:0}
-.nav-placeholder{width:64px}
-.header-search{flex:1;min-width:0}
+.nav-btn-right{margin-left:auto}
+.page-title{font-size:16px;font-weight:600;color:#2c3e50;margin:0;flex-shrink:0}
+.header-search{flex:1;min-width:0;margin-left:auto}
 .header-search input{width:100%;padding:7px 10px;font-size:13px;border:1px solid #ddd;border-radius:8px;outline:none;box-sizing:border-box}
 .header-search input:focus{border-color:#3498db}
 
