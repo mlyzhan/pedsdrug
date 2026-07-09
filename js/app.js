@@ -298,29 +298,44 @@ function calcEvaluate() {
   } catch(e) { d.value = 'Error'; }
 }
 
-// 拖拽（只响应 calc-header 内的鼠标事件，避免全局干扰）
+// 拖拽（只响应 calc-drag-icon，避开 × 按钮；支持触摸）
 var dragEl = null, dx = 0, dy = 0;
-document.addEventListener('mousedown', function(e) {
-  var h = e.target.closest('#calc-header');
-  if (!h) return;
+
+function startDrag(e) {
+  var t = e.touches ? e.touches[0] : e;
+  var target = e.target;
+  // 只从 ☰ 图标（calc-drag-icon）开始拖动，点击 ✕ 不触发
+  if (!target || !target.classList || !target.classList.contains('calc-drag-icon')) return;
   var c = document.getElementById('calc-container');
+  if (!c.classList.contains('show')) return;
   c.style.position = 'fixed';
   c.style.right = '';
   c.style.bottom = '';
   dragEl = c;
   var rect = dragEl.getBoundingClientRect();
-  dx = e.clientX - rect.left;
-  dy = e.clientY - rect.top;
+  dx = t.clientX - rect.left;
+  dy = t.clientY - rect.top;
   e.preventDefault();
-});
-document.addEventListener('mousemove', function(e) {
+}
+
+function moveDrag(e) {
   if (!dragEl) return;
-  dragEl.style.left = (e.clientX - dx) + 'px';
-  dragEl.style.top = (e.clientY - dy) + 'px';
+  var t = e.touches ? e.touches[0] : e;
+  dragEl.style.left = (t.clientX - dx) + 'px';
+  dragEl.style.top = (t.clientY - dy) + 'px';
   dragEl.style.right = 'auto';
   dragEl.style.bottom = 'auto';
-});
-document.addEventListener('mouseup', function() { dragEl = null; });
+  e.preventDefault();
+}
+
+function endDrag() { dragEl = null; }
+
+document.addEventListener('mousedown', startDrag);
+document.addEventListener('mousemove', moveDrag);
+document.addEventListener('mouseup', endDrag);
+document.addEventListener('touchstart', startDrag, {passive: false});
+document.addEventListener('touchmove', moveDrag, {passive: false});
+document.addEventListener('touchend', endDrag);
 
 // ============================================================
 // 加载数据
