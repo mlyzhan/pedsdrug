@@ -33,7 +33,7 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 .pagination span{font-size:14px;color:#666}
 
 /* 详情卡片 */
-.detail-area{background:#fff;border-radius:12px;padding:24px 20px;box-shadow:0 1px 4px rgba(0,0,0,0.1);position:relative}
+.detail-area{background:#fff;border-radius:12px;padding:24px 20px;box-shadow:0 1px 4px rgba(0,0,0,0.1);position:relative;container-type:inline-size}
 .field-label{font-size:15px;font-weight:bold;color:#333;margin-bottom:2px}
 .field-value{font-size:14px;color:#444;white-space:pre-wrap}
 .field-row-detail{margin-bottom:8px;line-height:1.5}
@@ -47,10 +47,10 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 .highlight-orange{color:#fd7e14;font-weight:bold}
 .highlight-purple{color:#8e44ad;font-weight:bold}
 
-/* 标题行：药品名 + 标签同行，根据容器宽度自适应缩小，保证不换行不裁剪 */
-.detail-title-row{container-type:inline-size;display:flex;align-items:baseline;gap:8px;margin-bottom:12px;flex-wrap:nowrap;width:100%}
-.detail-title-row .drug-title{font-size:clamp(12px,7cqi,20px);font-weight:700;color:#2c3e50;white-space:nowrap;min-width:0;line-height:1.4}
-.detail-title-row .drug-tag{flex-shrink:0;padding:2px 10px;font-size:clamp(9px,4.5cqi,13px);background:#3498db;color:#fff;border-radius:4px;white-space:nowrap;line-height:1.6}
+/* 标题行：药品名 + 标签同行，相对容器宽度自适应缩小 */
+.detail-title-row{display:flex;align-items:baseline;gap:max(4px,1.5cqi);margin-bottom:12px;flex-wrap:nowrap;width:100%}
+.detail-title-row .drug-title{font-size:clamp(14px,7cqi,20px);font-weight:700;color:#2c3e50;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:1;min-width:30%;line-height:1.4}
+.detail-title-row .drug-tag{flex-shrink:0;padding:2px max(6px,1.5cqi);font-size:clamp(10px,4cqi,13px);background:#3498db;color:#fff;border-radius:4px;white-space:nowrap;line-height:1.6}
 
 /* 水印 */
 .watermark-container{position:relative;display:flex;align-items:center;justify-content:center;flex:1;margin:4px 0 8px;min-height:0}
