@@ -250,9 +250,10 @@ function takeScreenshot() {
   if (!area) return;
   html2canvas(area, { scale: 2, backgroundColor: '#ffffff', useCORS: true }).then(function(canvas) {
     var link = document.createElement('a');
-    var name = (selectedDrug ? selectedDrug['药物'] : 'drug_info').replace(/[%％()（）\[\]\/:：]/g, '').trim();
+    var name = selectedDrug ? selectedDrug['药物'] : 'drug_info';
+    name = name.replace(/[0-9.]+[%％]/g, '').replace(/\(.*?\)/g, '').replace(/（.*?）/g, '').replace(/\[.*?\]/g, '').replace(/\//g, '').replace(/:/g, '').replace(/：/g, '').trim();
     name = name.length > 30 ? name.substring(0, 30) : name;
-    link.download = name + '_说明书.png';
+    link.download = (name || 'drug_info') + '_说明书.png';
     link.href = canvas.toDataURL('image/png');
     link.click();
   });
