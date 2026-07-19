@@ -34,8 +34,10 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 
 /* 详情卡片 */
 .detail-area{background:#fff;border-radius:12px;padding:24px 20px;box-shadow:0 1px 4px rgba(0,0,0,0.1);position:relative;overflow-x:hidden}
-.drug-title{font-size:clamp(16px,4.8vw,20px);font-weight:700;color:#2c3e50;line-height:1.4;margin-bottom:8px}
+.drug-title{font-size:clamp(16px,4.8vw,20px);font-weight:700;color:#2c3e50;line-height:1.4}
+.drug-title-block{display:block;margin-bottom:8px}
 .drug-tag{display:inline-block;padding:3px 10px;font-size:clamp(11px,3.2vw,13px);background:#3498db;color:#fff;border-radius:4px;white-space:nowrap;line-height:1.6}
+.em-tag{background:#8e44ad}
 .field-label{font-size:15px;font-weight:bold;color:#333;margin-bottom:2px}
 .field-value{font-size:14px;color:#444;white-space:pre-wrap}
 .field-row-detail{margin-bottom:8px;line-height:1.5}
@@ -116,3 +118,9 @@ body{font-family:-apple-system,'Times New Roman','Source Han Sans CN',sans-serif
 .back-btn{display:inline-block;padding:8px 16px;border-radius:6px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:14px;margin-bottom:10px}
 .back-btn:active{background:#eee}
 .search-info{font-size:13px;color:#666;margin:8px 0}
+
+/* 结果类型筛选标签 */
+.filter-tabs{display:flex;gap:6px;margin:0 0 10px 0;flex-wrap:wrap}
+.filter-tab{padding:5px 12px;font-size:12px;border-radius:14px;border:1px solid #ddd;background:#fff;color:#666;cursor:pointer;transition:all .15s;user-select:none}
+.filter-tab.active{background:#3498db;color:#fff;border-color:#3498db}
+.filter-tab:active{opacity:.7}

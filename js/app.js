@@ -4,12 +4,15 @@
 // 数据
 // ============================================================
 const DRUGS = [];
+const EMERGENCY = [];   // 急救方案独立存储
 let currentPage = 1;
 const PAGE_SIZE = 15;
 let searchResults = [];
 let selectedDrug = null;
+let selectedEmergency = null;
 let isCalcOpen = false;
 var _justEvaluated = false;
+var _resultType = 'all';   // all | drug | abx | emergency
 
 // ============================================================
 // 格式化函数
@@ -137,17 +140,45 @@ function goPage(name) {
 
 function backToList() { goPage('list'); renderList(); }
 
-// 列表页内联筛选
+// 列表页内联筛选：对合并结果（含急救）也生效
 var _fullResults = [];
 function reSearch() {
+  _resultType = 'all';
+  updateFilterTabs();
   var q = document.getElementById('list-search-input').value.trim().toLowerCase();
   if (!q) { searchResults = _fullResults; currentPage = 1; renderList(); return; }
   var filtered = _fullResults.filter(function(d) {
-    return d['药物'].toLowerCase().indexOf(q) >= 0 || d['首拼'].toLowerCase().indexOf(q) >= 0 || d['适应症'].toLowerCase().indexOf(q) >= 0;
+    return (d['药物'] || d['适应症'] || '').toLowerCase().indexOf(q) >= 0 ||
+      (d['首拼'] || '').toLowerCase().indexOf(q) >= 0 ||
+      (d['适应症'] || '').toLowerCase().indexOf(q) >= 0;
   });
   searchResults = filtered;
   currentPage = 1;
   renderList();
+}
+
+function setResultType(type, el) {
+  _resultType = type;
+  updateFilterTabs();
+  // 在 _fullResults 上按类型过滤
+  if (type === 'drug') {
+    searchResults = _fullResults.filter(function(d) { return d['来源'] === '普通药物'; });
+  } else if (type === 'abx') {
+    searchResults = _fullResults.filter(function(d) { return d['来源'] === '抗生素'; });
+  } else if (type === 'emergency') {
+    searchResults = _fullResults.filter(function(d) { return d['来源'] === '急救方案'; });
+  } else {
+    searchResults = _fullResults;
+  }
+  currentPage = 1;
+  renderList();
+}
+
+function updateFilterTabs() {
+  var tabs = document.querySelectorAll('.filter-tab');
+  tabs.forEach(function(t) { t.classList.remove('active'); });
+  var target = document.querySelector('.filter-tab[data-type="' + _resultType + '"]');
+  if (target) target.classList.add('active');
 }
 
 // ============================================================
@@ -157,7 +188,22 @@ function doSearch() {
   var q = document.getElementById('search-input').value.trim();
   if (!q) return;
   var keys = q.split(/\s+/);
-  var results = DRUGS.filter(function(d) {
+
+  // 急救方案搜索
+  var emResults = [];
+  for (var i = 0; i < EMERGENCY.length; i++) {
+    var e = EMERGENCY[i];
+    var match = true;
+    for (var k = 0; k < keys.length; k++) {
+      var kw = keys[k].toLowerCase();
+      if (e['适应症'].toLowerCase().indexOf(kw) >= 0 || e['首拼'].toLowerCase().indexOf(kw) >= 0 || e['一级目录'].toLowerCase().indexOf(kw) >= 0) continue;
+      match = false; break;
+    }
+    if (match) emResults.push(e);
+  }
+
+  // 药物搜索
+  var drugResults = DRUGS.filter(function(d) {
     for (var k = 0; k < keys.length; k++) {
       var kw = keys[k].toLowerCase();
       if (d['药物'].indexOf(kw) >= 0 || d['首拼'].toLowerCase().indexOf(kw) >= 0 || d['适应症'].indexOf(kw) >= 0) continue;
@@ -165,12 +211,17 @@ function doSearch() {
     }
     return true;
   });
+
+  // 合并：药物在前，急救在后
+  var results = drugResults.concat(emResults);
   if (results.length === 0) {
     document.getElementById('modal-overlay').classList.add('show');
     return;
   }
   searchResults = results;
   _fullResults = results;
+  _resultType = 'all';
+  updateFilterTabs();
   currentPage = 1;
   goPage('list');
 }
@@ -197,11 +248,12 @@ function renderList() {
   var end = Math.min(start + PAGE_SIZE, searchResults.length);
   var pageData = searchResults.slice(start, end);
 
-  var html = "<table id='list-table'><thead><tr><th>药物</th><th>分类信息</th></tr></thead><tbody>";
+  var html = "<table id='list-table'><thead><tr><th>名称</th><th>分类</th></tr></thead><tbody>";
   for (var i = 0; i < pageData.length; i++) {
     var d = pageData[i];
     var idx = start + i;
-    html += "<tr onclick='showDetail(" + idx + ")'><td class='drug-name'>" + d['药物'] + "</td><td class='drug-cat'>" + d['分类信息'] + "</td></tr>";
+    var name = d['药物'] || d['适应症'] || '';
+    html += "<tr onclick='showDetail(" + idx + ")'><td class='drug-name'>" + name + "</td><td class='drug-cat'>" + d['分类信息'] + "</td></tr>";
   }
   html += "</tbody></table>";
 
@@ -219,8 +271,28 @@ function nextPage() { var total = Math.ceil(searchResults.length / PAGE_SIZE); i
 // ============================================================
 function showDetail(idx) {
   var d = searchResults[idx];
+
+  // 急救方案走独立渲染分支
+  if (d['来源'] === '急救方案') {
+    selectedEmergency = d;
+    selectedDrug = null;
+    var html = '';
+    html += "<span class='drug-tag em-tag'>" + (d['分类信息'] || '急症处理') + "</span>";
+    html += "<span class='drug-title' style='display:inline;margin-left:6px;'>" + d['适应症'] + "</span>";
+    if (d['儿童用法用量']) {
+      html += renderField("处理方案", formatDrugText(d['儿童用法用量']), true);
+    }
+    if (d['注意事项']) {
+      html += renderField("注意事项", formatDrugText(d['注意事项']), true);
+    }
+    document.getElementById('detail-content').innerHTML = html;
+    goPage('detail');
+    return;
+  }
+
   selectedDrug = d;
-  var html = "<div class='drug-title'>" + d['药物'] + "</div>";
+  selectedEmergency = null;
+  var html = "<div class='drug-title drug-title-block'>" + d['药物'] + "</div>";
   html += "<hr style='margin:10px 0;border:none;border-top:1px solid #eee'>";
 
   if (d['来源'] === '普通药物') {
@@ -250,7 +322,7 @@ function takeScreenshot() {
   if (!area) return;
   html2canvas(area, { scale: 2, backgroundColor: '#ffffff', useCORS: true }).then(function(canvas) {
     var link = document.createElement('a');
-    var name = selectedDrug ? selectedDrug['药物'] : 'drug_info';
+    var name = selectedDrug ? selectedDrug['药物'] : (selectedEmergency ? selectedEmergency['适应症'] : 'drug_info');
     name = name.replace(/[0-9.]+[%％]/g, '').replace(/\(.*?\)/g, '').replace(/（.*?）/g, '').replace(/\[.*?\]/g, '').replace(/\//g, '').replace(/:/g, '').replace(/：/g, '').trim();
     name = name.length > 30 ? name.substring(0, 30) : name;
     link.download = (name || 'drug_info') + '_说明书.png';
@@ -386,8 +458,14 @@ function loadData() {
   xhr.onload = function() {
     if (xhr.status === 200) {
       var data = JSON.parse(xhr.responseText);
-      for (var i = 0; i < data.length; i++) DRUGS.push(data[i]);
-      console.log('✅ 加载完成：' + DRUGS.length + ' 条药品');
+      for (var i = 0; i < data.length; i++) {
+        if (data[i]['来源'] === '急救方案') {
+          EMERGENCY.push(data[i]);
+        } else {
+          DRUGS.push(data[i]);
+        }
+      }
+      console.log('✅ 加载完成：' + DRUGS.length + ' 条药品 + ' + EMERGENCY.length + ' 条急症处理');
     }
   };
   xhr.send();

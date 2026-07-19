@@ -11,7 +11,7 @@
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal-box">
     <div class="modal-icon">⚠</div>
-    <h4>未查询到药品</h4>
+    <h4>未查询到</h4>
     <p>请检查输入或减少关键词</p>
     <button onclick="closeModal()">重新输入</button>
   </div>
@@ -19,8 +19,8 @@
 
 <div class="page active" id="page-search">
   <div class="search-box">
-    <h5>第一步：搜索药品</h5>
-    <input type="text" id="search-input" placeholder="例如：头孢、感冒、amxl" onkeydown="if(event.key==='Enter')doSearch()">
+    <h5>搜索药品 / 急症</h5>
+    <input type="text" id="search-input" placeholder="例如：头孢、高钾血症、amxl" onkeydown="if(event.key==='Enter')doSearch()">
     <button onclick="doSearch()">查看搜索结果</button>
   </div>
 </div>
@@ -34,6 +34,12 @@
     <div class="header-search">
       <input type="text" id="list-search-input" placeholder="筛选..." oninput="reSearch()">
     </div>
+  </div>
+  <div class="filter-tabs" id="filter-tabs">
+    <span class="filter-tab active" data-type="all" onclick="setResultType('all', this)">全部</span>
+    <span class="filter-tab" data-type="drug" onclick="setResultType('drug', this)">药物</span>
+    <span class="filter-tab" data-type="abx" onclick="setResultType('abx', this)">抗生素</span>
+    <span class="filter-tab" data-type="emergency" onclick="setResultType('emergency', this)">急救方案</span>
   </div>
   <div class="search-info" id="search-info"></div>
   <div id="list-container"></div>
@@ -64,8 +70,8 @@
       <button class="btn-more" onclick="toggleMoreMenu()">⋯ 其他</button>
       <div class="more-menu" id="more-menu">
         <div class="more-item" onclick="window.open('https://docs.qq.com/form/page/DR1NPc0NCd3ZaVVNi','_blank')"><span class="mi-icon">💬</span><span class="mi-text">反馈</span></div>
-        <div class="more-item" onclick="window.open('https://pedsdrug.pedsdrug.workers.dev','_blank')"><span class="mi-icon">🌐</span><span class="mi-text">备用网址</span></div>
-        <div class="more-item" style="color:#999"><span class="mi-icon">⋯</span><span class="mi-text">其他（待定）</span></div>
+        <div class="more-item" onclick="window.open('https://pedsdrug.shinyapps.io/pedsdrug/','_blank')"><span class="mi-icon">🌐</span><span class="mi-text">备用网址</span></div>
+        <div class="more-item" onclick="window.open('https://pedsdrug.netlify.app/','_blank')"><span class="mi-icon">🌐</span><span class="mi-text">备用网址 2</span></div>
       </div>
     </div>
   </div>
