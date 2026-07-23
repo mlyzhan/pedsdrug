@@ -52,9 +52,8 @@ function applyHighlight(text) {
 
 function parseMarkdownTable(text) {
   var lines = text.split('\n');
-  var firstThree = lines.slice(0, 3);
-  var hasSep = firstThree.some(function(l) { return /^\s*\|(?:[-\s]+\|)+\s*$/.test(l); });
-  if (!hasSep || lines.length < 3) return null;
+  var hasSep = lines.some(function(l) { return /^\s*\|(?:[-\s]+\|)+\s*$/.test(l); });
+  if (!hasSep) return null;
 
   var headerIdx = -1;
   for (var i = 0; i < lines.length; i++) {
@@ -70,6 +69,7 @@ function parseMarkdownTable(text) {
   while (tableEnd < lines.length && lines[tableEnd] !== '') tableEnd++;
 
   var tableLines = lines.slice(dataStart, tableEnd);
+  var beforeTable = headerIdx > 0 ? lines.slice(0, headerIdx).join('<br>') : '';
   var afterTable = tableEnd < lines.length ? lines.slice(tableEnd + 1).join('<br>') : '';
   var headerRows = lines.slice(headerIdx, dataStart).filter(function(l) { return !/\|\s*-+\s*\|/.test(l); });
 
@@ -85,7 +85,12 @@ function parseMarkdownTable(text) {
   if (allHeaderCells.length === 0) return null;
   var nCols = maxCols;
 
-  var html = "<table class='drug-table'><thead>";
+  var html = '';
+  if (beforeTable && beforeTable !== '<br>') {
+    beforeTable = applyHighlight(beforeTable);
+    html += "<div style='font-size:14px;margin-bottom:6px;'>" + beforeTable + "</div>";
+  }
+  html += "<table class='drug-table'><thead>";
   for (var h = 0; h < allHeaderCells.length; h++) {
     var row = allHeaderCells[h];
     while (row.length < nCols) row.push('');
